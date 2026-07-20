@@ -1,0 +1,8 @@
+.build/
+.swiftpm/
+*.xcodeproj
+*.app
+.DS_Store
+
+# Icon intermediate (regenerate with `make icon`); AppIcon.icns is committed.
+Resources/AppIcon.iconset/
