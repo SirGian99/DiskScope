@@ -38,10 +38,12 @@ like the Finder's column view.
 - **Size "heat" coloring** (log-scaled) plus a faint proportional bar behind
   each row, so the biggest items pop visually.
 - **Keyboard navigation.** `↑`/`↓` move within a column, `→` descends into a
-  folder, `←` goes back up, `⌘⌫` moves the selection to the Trash.
+  folder, `←` goes back up, `⌘⇧C` copies the selection's path, `⌘⌫` moves the
+  selection to the Trash.
 - **Reclaim space safely.** Deletion always goes through the Trash
   (`FileManager.trashItem`) — it is reversible and never a destructive `rm`.
-- **Reveal in Finder** for any selected item.
+- **Reveal in Finder** for any selected item, and **Copy Path** (also available
+  from the right-click menu on any row).
 - **Disk-independent.** Scan the boot drive, any mounted external volume, or an
   arbitrary folder you pick.
 
