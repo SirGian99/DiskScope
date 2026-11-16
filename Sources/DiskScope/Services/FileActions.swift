@@ -8,6 +8,13 @@ enum FileActions {
         NSWorkspace.shared.activateFileViewerSelecting([url])
     }
 
+    /// Copies the item's absolute path to the pasteboard as plain text.
+    static func copyPath(_ url: URL) {
+        let pasteboard = NSPasteboard.general
+        pasteboard.clearContents()
+        pasteboard.setString(url.path, forType: .string)
+    }
+
     /// Moves the item to the Trash (reversible). Never deletes in place.
     /// - Returns: the resulting URL inside the Trash, if available.
     @discardableResult

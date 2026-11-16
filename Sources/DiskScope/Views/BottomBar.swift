@@ -6,6 +6,7 @@ struct BottomBar: View {
     @Binding var selection: [FileNode]
     @State private var confirmTrash = false
     @State private var trashError: String?
+    @State private var didCopy = false
 
     private var tip: FileNode? { selection.last }
 
@@ -40,6 +41,16 @@ struct BottomBar: View {
 
             HStack(spacing: 8) {
                 Button {
+                    copyPath()
+                } label: {
+                    Label(didCopy ? "Copied" : "Copy Path",
+                          systemImage: didCopy ? "checkmark" : "doc.on.doc")
+                }
+                .disabled(tip == nil)
+                .keyboardShortcut("c", modifiers: [.command, .shift])
+                .help("Copy the full path to the clipboard")
+
+                Button {
                     if let url = tip?.url { FileActions.reveal(url) }
                 } label: {
                     Label("Reveal", systemImage: "magnifyingglass")
@@ -54,7 +65,7 @@ struct BottomBar: View {
                 .disabled(tip == nil)
                 .keyboardShortcut(.delete, modifiers: .command)
             }
-            .frame(width: 240, alignment: .trailing)
+            .frame(width: 340, alignment: .trailing)
         }
         .padding(.horizontal, 14)
         .padding(.vertical, 10)
@@ -81,6 +92,17 @@ struct BottomBar: View {
                 CapacityBar(used: used, total: coordinator.capacityBytes)
                     .frame(height: 6)
             }
+        }
+    }
+
+    /// Copies the selected item's path and flashes a confirmation on the button.
+    private func copyPath() {
+        guard let url = tip?.url else { return }
+        FileActions.copyPath(url)
+        didCopy = true
+        Task {
+            try? await Task.sleep(nanoseconds: 1_200_000_000)
+            didCopy = false
         }
     }
 

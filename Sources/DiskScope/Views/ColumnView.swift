@@ -24,6 +24,9 @@ struct ColumnView: View {
                         .id(node.id)
                         .contentShape(Rectangle())
                         .onTapGesture { select(node) }
+                        .contextMenu {
+                            Button("Copy Path") { FileActions.copyPath(node.url) }
+                        }
                     }
                 }
                 .padding(.vertical, 4)
